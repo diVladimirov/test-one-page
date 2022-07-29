@@ -1,7 +1,27 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { FormWrapper, FormTitle, FormStyled, ButtonStyled } from './Form.styled';
+import {
+  FormWrapper,
+  FormTitle,
+  FormStyled,
+  MainLabelStyled,
+  MainInputStyled,
+  MainLabelPlaceholderStyled,
+  PhoneDescription,
+  PositionDescription,
+  PositionWrapper,
+  PositionLabelStyled,
+  PositionRadioStyled,
+  ButtonWrapper,
+  ButtonStyled,
+  InputPhotoWrapper,
+  InputPhotoStyled,
+  LabelPhotoStyled,
+  InputPhotoDescriptionBefore,
+  InputPhotoDescriptionAfter,
+  ErrorTextStyled,
+} from './Form.styled';
 
 const Form = () => {
   const positions = [
@@ -27,13 +47,26 @@ const Form = () => {
       name: '',
       email: '',
       phone: '',
-      position: '',
+      position: 1,
     },
     validationSchema: Yup.object().shape({
-      name: Yup.string(),
-      email: Yup.string(),
-      phone: Yup.string(),
-      position: Yup.string(),
+      name: Yup.string()
+        .min(2, 'Username should contain 2-60 characters')
+        .max(60, 'Username should contain 2-60 characters')
+        .required('Name is equired'),
+      email: Yup.string()
+        .email('Email must be a valid email')
+        .min(2, 'Email must be a valid email')
+        .max(100)
+        .matches(
+          /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+          'Email must be a valid email',
+        )
+        .required('Email is required'),
+      phone: Yup.string()
+        .max(13)
+        .matches(/^([+]{0,1}380([0-9]{9})$)/, 'Phone should start with code of Ukraine +380')
+        .required('Phone is required'),
     }),
     onSubmit: (values, { resetForm }) => {
       console.log(values);
@@ -44,52 +77,77 @@ const Form = () => {
   return (
     <FormWrapper>
       <FormTitle>Working with POST request</FormTitle>
-      <FormStyled onSubmit={formik.handleSubmit}>
-        <input
-          name="name"
-          type="text"
-          placeholder="Your name"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.name}
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.email}
-        />
-        <input
-          name="phone"
-          type="tel"
-          placeholder="Phone"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.phone}
-        />
-        <p>Select your position</p>
-        {positions.map(position => (
-          <label key={position.id}>
-            <input
-              type="radio"
-              name="position"
-              checked={formik.values.position === position.name}
-              value={position.name}
-              onChange={formik.handleChange}
-            />
-            {position.name}
-          </label>
-        ))}
-        <div>
-          <input type="file" id="photo" name="photo" accept="image/*" />
-          <label htmlFor="photo">
-            <span>Upload</span>
-            <span>Upload your photo</span>
-          </label>
-        </div>
-        <ButtonStyled type="submit">Sign up</ButtonStyled>
+      <FormStyled onSubmit={formik.handleSubmit} id="signup">
+        <MainLabelStyled>
+          <MainInputStyled
+            name="name"
+            type="text"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+            required
+          />
+          <MainLabelPlaceholderStyled>Your name</MainLabelPlaceholderStyled>
+        </MainLabelStyled>
+        {formik.touched.name && formik.errors.name ? (
+          <ErrorTextStyled>{formik.errors.name}</ErrorTextStyled>
+        ) : null}
+        <MainLabelStyled>
+          <MainInputStyled
+            name="email"
+            type="email"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            required
+          />
+          <MainLabelPlaceholderStyled>Email</MainLabelPlaceholderStyled>
+        </MainLabelStyled>
+        {formik.touched.email && formik.errors.email ? (
+          <ErrorTextStyled>{formik.errors.email}</ErrorTextStyled>
+        ) : null}
+        <MainLabelStyled>
+          <MainInputStyled
+            name="phone"
+            type="tel"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.phone}
+            required
+          />
+          <MainLabelPlaceholderStyled>Phone</MainLabelPlaceholderStyled>
+        </MainLabelStyled>
+        {formik.touched.phone && formik.errors.phone ? (
+          <ErrorTextStyled>{formik.errors.phone}</ErrorTextStyled>
+        ) : null}
+        <PhoneDescription>+38 (XXX) XXX - XX - XX</PhoneDescription>
+
+        <PositionDescription>Select your position</PositionDescription>
+        <PositionWrapper>
+          {positions.map(position => (
+            <PositionLabelStyled key={position.id}>
+              <PositionRadioStyled
+                type="radio"
+                name="position"
+                checked={Number(formik.values.position) === position.id}
+                value={position.id}
+                onChange={formik.handleChange}
+              />
+              {position.name}
+            </PositionLabelStyled>
+          ))}
+        </PositionWrapper>
+
+        <InputPhotoWrapper>
+          <InputPhotoStyled type="file" id="photo" name="photo" accept="image/*" />
+          <LabelPhotoStyled htmlFor="photo">
+            <InputPhotoDescriptionBefore>Upload</InputPhotoDescriptionBefore>
+            <InputPhotoDescriptionAfter>Upload your photo</InputPhotoDescriptionAfter>
+          </LabelPhotoStyled>
+        </InputPhotoWrapper>
+        <ButtonWrapper>
+          <ButtonStyled type="submit">Sign up</ButtonStyled>
+        </ButtonWrapper>
       </FormStyled>
     </FormWrapper>
   );

@@ -10,10 +10,10 @@ const Navbar = () => {
       </a>
       <UlStyled>
         <LiStyled>
-          <LinkStyled href="/">Users</LinkStyled>
+          <LinkStyled href="#users">Users</LinkStyled>
         </LiStyled>
         <LiStyled>
-          <LinkStyled href="/">Sign up</LinkStyled>
+          <LinkStyled href="#signup">Sign up</LinkStyled>
         </LiStyled>
       </UlStyled>
     </NavBarWrapper>

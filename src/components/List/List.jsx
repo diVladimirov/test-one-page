@@ -3,7 +3,7 @@ import { ListSectionStyled, TitleStyled, ButtonStyled, UlStyled, LiStyled } from
 
 const List = () => {
   return (
-    <ListSectionStyled>
+    <ListSectionStyled id="users">
       <TitleStyled>Working with GET request</TitleStyled>
       <UlStyled>
         <LiStyled></LiStyled>
