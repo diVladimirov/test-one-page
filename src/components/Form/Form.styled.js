@@ -91,17 +91,39 @@ export const PositionLabelStyled = styled.label`
   color: rgba(0, 0, 0, 0.87);
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
-export const PositionRadioStyled = styled.input`
+export const CheckRadio = styled.div`
   width: 20px;
   height: 20px;
+  border-radius: 50%;
+  border: 1px solid #d0cfcf;
   margin-right: 12px;
-  :active {
-    background-color: #00bdd3;
-    border-color: #00bdd3;
+  padding: 4px;
+
+  &::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: #00bdd3;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 300ms ease;
   }
 `;
+export const PositionRadioStyled = styled.input`
+  display: none;
+
+  &:checked + ${CheckRadio} {
+    border: 1px solid #00bdd3;
+  }
+  &:checked + ${CheckRadio}::after {
+    transform: scale(1);
+  }
+`;
+
 export const ButtonWrapper = styled.div`
   text-align: center;
 `;

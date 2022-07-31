@@ -22,6 +22,7 @@ import {
   InputPhotoDescriptionAfter,
   ErrorTextStyled,
   HelperAndErrorTextWrapper,
+  CheckRadio,
 } from './Form.styled';
 
 const Form = () => {
@@ -183,6 +184,7 @@ const Form = () => {
                 value={position.id}
                 onChange={formik.handleChange}
               />
+              <CheckRadio></CheckRadio>
               {position.name}
             </PositionLabelStyled>
           ))}
