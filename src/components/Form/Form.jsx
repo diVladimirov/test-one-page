@@ -21,6 +21,7 @@ import {
   InputPhotoDescriptionBefore,
   InputPhotoDescriptionAfter,
   ErrorTextStyled,
+  HelperAndErrorTextWrapper,
 } from './Form.styled';
 
 const Form = () => {
@@ -53,7 +54,7 @@ const Form = () => {
       name: Yup.string()
         .min(2, 'Username should contain 2-60 characters')
         .max(60, 'Username should contain 2-60 characters')
-        .required('Name is equired'),
+        .required('Name is required'),
       email: Yup.string()
         .email('Email must be a valid email')
         .min(2, 'Email must be a valid email')
@@ -78,49 +79,98 @@ const Form = () => {
     <FormWrapper>
       <FormTitle>Working with POST request</FormTitle>
       <FormStyled onSubmit={formik.handleSubmit} id="signup">
-        <MainLabelStyled>
-          <MainInputStyled
-            name="name"
-            type="text"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.name}
-            required
-          />
-          <MainLabelPlaceholderStyled>Your name</MainLabelPlaceholderStyled>
-        </MainLabelStyled>
+        {formik.touched.name && formik.errors.name ? (
+          <MainLabelStyled>
+            <MainInputStyled
+              name="name"
+              type="text"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.name}
+              required
+              withError
+            />
+            <MainLabelPlaceholderStyled withError>Your name</MainLabelPlaceholderStyled>
+          </MainLabelStyled>
+        ) : (
+          <MainLabelStyled>
+            <MainInputStyled
+              name="name"
+              type="text"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.name}
+              required
+            />
+            <MainLabelPlaceholderStyled>Your name</MainLabelPlaceholderStyled>
+          </MainLabelStyled>
+        )}
         {formik.touched.name && formik.errors.name ? (
           <ErrorTextStyled>{formik.errors.name}</ErrorTextStyled>
         ) : null}
-        <MainLabelStyled>
-          <MainInputStyled
-            name="email"
-            type="email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-            required
-          />
-          <MainLabelPlaceholderStyled>Email</MainLabelPlaceholderStyled>
-        </MainLabelStyled>
+        {formik.touched.email && formik.errors.email ? (
+          <MainLabelStyled>
+            <MainInputStyled
+              name="email"
+              type="email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+              required
+              withError
+            />
+            <MainLabelPlaceholderStyled withError>Email</MainLabelPlaceholderStyled>
+          </MainLabelStyled>
+        ) : (
+          <MainLabelStyled>
+            <MainInputStyled
+              name="email"
+              type="email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+              required
+            />
+            <MainLabelPlaceholderStyled>Email</MainLabelPlaceholderStyled>
+          </MainLabelStyled>
+        )}
+
         {formik.touched.email && formik.errors.email ? (
           <ErrorTextStyled>{formik.errors.email}</ErrorTextStyled>
         ) : null}
-        <MainLabelStyled>
-          <MainInputStyled
-            name="phone"
-            type="tel"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.phone}
-            required
-          />
-          <MainLabelPlaceholderStyled>Phone</MainLabelPlaceholderStyled>
-        </MainLabelStyled>
         {formik.touched.phone && formik.errors.phone ? (
-          <ErrorTextStyled>{formik.errors.phone}</ErrorTextStyled>
-        ) : null}
-        <PhoneDescription>+38 (XXX) XXX - XX - XX</PhoneDescription>
+          <MainLabelStyled>
+            <MainInputStyled
+              name="phone"
+              type="tel"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.phone}
+              required
+              withError
+            />
+            <MainLabelPlaceholderStyled withError>Phone</MainLabelPlaceholderStyled>
+          </MainLabelStyled>
+        ) : (
+          <MainLabelStyled>
+            <MainInputStyled
+              name="phone"
+              type="tel"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.phone}
+              required
+            />
+            <MainLabelPlaceholderStyled>Phone</MainLabelPlaceholderStyled>
+          </MainLabelStyled>
+        )}
+
+        <HelperAndErrorTextWrapper>
+          {formik.touched.phone && formik.errors.phone ? (
+            <ErrorTextStyled>{formik.errors.phone}</ErrorTextStyled>
+          ) : null}
+          <PhoneDescription>+38 (XXX) XXX - XX - XX</PhoneDescription>
+        </HelperAndErrorTextWrapper>
 
         <PositionDescription>Select your position</PositionDescription>
         <PositionWrapper>

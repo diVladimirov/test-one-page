@@ -31,14 +31,25 @@ export const MainLabelPlaceholderStyled = styled.span`
   top: 14px;
   font-size: 16px;
   line-height: 26px;
-  color: #7e7e7e;
+  color: ${props => (props.withError ? '#CB3D40' : '#7e7e7e')};
   transition: top 300ms ease;
   padding: 0 5px;
+  border-radius: 4px;
+`;
+export const ErrorTextStyled = styled.div`
+  font-size: 12px;
+  line-height: 14px;
+  color: #cb3d40;
+  margin-left: 16px;
+  margin-top: 4px;
+  &:not(:last-of-type) {
+    position: absolute;
+  }
 `;
 export const MainInputStyled = styled.input`
   width: 100%;
   padding: 14px 0px 14px 16px;
-  border: 1px solid #d0cfcf;
+  border: ${props => (props.withError ? '1px solid #CB3D40' : '1px solid #d0cfcf')};
   border-radius: 4px;
   outline: none;
 `;
@@ -55,14 +66,10 @@ export const MainLabelStyled = styled.label`
   :not(:first-child) {
     margin-top: 50px;
   }
-`;
 
-export const ErrorTextStyled = styled.div`
-  font-size: 12px;
-  line-height: 14px;
-  color: #cb3d40;
-  margin-left: 16px;
-  margin-top: 4px;
+  ${ErrorTextStyled} ${MainInputStyled} {
+    border: 1px solid red;
+  }
 `;
 
 export const PositionDescription = styled.p`
@@ -150,4 +157,9 @@ export const InputPhotoDescriptionAfter = styled.span`
   padding: 14px 0px 14px 16px;
   text-align: left;
   color: #7e7e7e;
+`;
+
+export const HelperAndErrorTextWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
