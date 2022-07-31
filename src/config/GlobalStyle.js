@@ -10,7 +10,7 @@ body {
     font-style: normal;
     font-weight: 400;
     height: 100%;
-    background: #FFFFFF;
+    background: #f8f8f8;
 }
 html {
   height: 100%;

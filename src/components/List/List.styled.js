@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const ListSectionStyled = styled.section`
   padding: 140px 0;
-  border: 1px solid red;
   text-align: center;
 `;
 
@@ -13,7 +12,6 @@ export const TitleStyled = styled.h2`
 `;
 
 export const UlStyled = styled.ul`
-  border: 1px solid red;
   margin-top: 50px;
   display: grid;
   gap: 20px;
@@ -29,9 +27,38 @@ export const UlStyled = styled.ul`
 `;
 
 export const LiStyled = styled.li`
-  border: 1px solid red;
-  max-width: 704px;
+  @media screen and (max-width: 768px) {
+    max-width: 704px;
+  }
   height: 254px;
+  padding: 20px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+`;
+
+export const ImageStyled = styled.img`
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+  margin-bottom: 20px;
+`;
+
+export const UserTitleStyled = styled.h3`
+  font-size: 16px;
+  line-height: 26px;
+  color: rgba(0, 0, 0, 0.87);
+  margin-bottom: 20px;
+  max-height: 26px;
+  overflow: hidden;
+`;
+
+export const UserInfoStyled = styled.p`
+  font-size: 16px;
+  line-height: 26px;
+  color: rgba(0, 0, 0, 0.87);
 `;
 
 export const ButtonStyled = styled.button`
@@ -44,4 +71,14 @@ export const ButtonStyled = styled.button`
   line-height: 26px;
   color: rgba(0, 0, 0, 0.87);
   margin-top: 50px;
+
+  &:disabled {
+    background: #b4b4b4;
+    color: rgba(255, 255, 255, 0.87);
+    cursor: default;
+  }
+  &:hover,
+  :focus {
+    background: #ffe302;
+  }
 `;

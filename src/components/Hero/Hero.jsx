@@ -18,7 +18,7 @@ const Hero = () => {
           with accessibility in mind. They should also be excited to learn, as the world of
           Front-End Development keeps evolving
         </DescriptionStyled>
-        <LinkStyled href="/">Sign up</LinkStyled>
+        <LinkStyled href="#signup">Sign up</LinkStyled>
       </DescriptionWrapper>
     </HeroWrapperStyled>
   );

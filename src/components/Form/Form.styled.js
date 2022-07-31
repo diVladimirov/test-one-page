@@ -66,10 +66,6 @@ export const MainLabelStyled = styled.label`
   :not(:first-child) {
     margin-top: 50px;
   }
-
-  ${ErrorTextStyled} ${MainInputStyled} {
-    border: 1px solid red;
-  }
 `;
 
 export const PositionDescription = styled.p`
@@ -141,6 +137,10 @@ export const ButtonStyled = styled.button`
     background: #b4b4b4;
     color: rgba(255, 255, 255, 0.87);
     cursor: default;
+  }
+  &:hover,
+  :focus {
+    background: #ffe302;
   }
 `;
 
