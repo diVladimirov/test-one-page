@@ -50,6 +50,7 @@ const Form = () => {
       email: '',
       phone: '',
       position: 1,
+      photo: '',
     },
     validationSchema: Yup.object().shape({
       name: Yup.string()
@@ -69,6 +70,7 @@ const Form = () => {
         .max(13)
         .matches(/^([+]{0,1}380([0-9]{9})$)/, 'Phone should start with code of Ukraine +380')
         .required('Phone is required'),
+      photo: Yup.mixed().required('Photo is required'),
     }),
     onSubmit: (values, { resetForm }) => {
       console.log(values);
@@ -191,14 +193,50 @@ const Form = () => {
         </PositionWrapper>
 
         <InputPhotoWrapper>
-          <InputPhotoStyled type="file" id="photo" name="photo" accept="image/*" />
-          <LabelPhotoStyled htmlFor="photo">
-            <InputPhotoDescriptionBefore>Upload</InputPhotoDescriptionBefore>
-            <InputPhotoDescriptionAfter>Upload your photo</InputPhotoDescriptionAfter>
-          </LabelPhotoStyled>
+          {formik.touched.photo && formik.errors.photo ? (
+            <LabelPhotoStyled htmlFor="photo">
+              <InputPhotoStyled
+                type="file"
+                id="photo"
+                name="photo"
+                accept=".jpg, .jpeg"
+                onChange={events => {
+                  formik.setFieldValue('photo', events.target.files[0]);
+                }}
+              />
+              <InputPhotoDescriptionBefore withError>Upload</InputPhotoDescriptionBefore>
+              <InputPhotoDescriptionAfter withError>
+                {formik.values.photo ? formik.values.photo.name : 'Upload your photo'}
+              </InputPhotoDescriptionAfter>
+            </LabelPhotoStyled>
+          ) : (
+            <LabelPhotoStyled htmlFor="photo">
+              <InputPhotoStyled
+                type="file"
+                id="photo"
+                name="photo"
+                accept=".jpg, .jpeg"
+                onChange={events => {
+                  formik.setFieldValue('photo', events.target.files[0]);
+                }}
+              />
+              <InputPhotoDescriptionBefore>Upload</InputPhotoDescriptionBefore>
+              <InputPhotoDescriptionAfter>
+                {formik.values.photo
+                  ? formik.values.photo.name.slice(0, 27) + '...'
+                  : 'Upload your photo'}
+              </InputPhotoDescriptionAfter>
+            </LabelPhotoStyled>
+          )}
+
+          {formik.touched.photo && formik.errors.photo ? (
+            <ErrorTextStyled>{formik.errors.photo}</ErrorTextStyled>
+          ) : null}
         </InputPhotoWrapper>
         <ButtonWrapper>
-          <ButtonStyled type="submit">Sign up</ButtonStyled>
+          <ButtonStyled type="submit" disabled={!formik.dirty && !formik.isValid}>
+            Sign up
+          </ButtonStyled>
         </ButtonWrapper>
       </FormStyled>
     </FormWrapper>

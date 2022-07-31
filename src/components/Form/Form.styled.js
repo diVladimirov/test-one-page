@@ -136,6 +136,12 @@ export const ButtonStyled = styled.button`
   font-size: 16px;
   line-height: 26px;
   color: rgba(0, 0, 0, 0.87);
+
+  &:disabled {
+    background: #b4b4b4;
+    color: rgba(255, 255, 255, 0.87);
+    cursor: default;
+  }
 `;
 
 export const InputPhotoWrapper = styled.div`
@@ -161,7 +167,7 @@ export const LabelPhotoStyled = styled.label`
 export const InputPhotoDescriptionBefore = styled.span`
   width: 83px;
   height: 54px;
-  border: 1px solid rgba(0, 0, 0, 0.87);
+  border: ${props => (props.withError ? '1px solid #CB3D40' : '1px solid rgba(0, 0, 0, 0.87)')};
   border-radius: 4px 0px 0px 4px;
   font-size: 16px;
   line-height: 26px;
@@ -172,7 +178,7 @@ export const InputPhotoDescriptionBefore = styled.span`
 export const InputPhotoDescriptionAfter = styled.span`
   height: 54px;
   width: 100%;
-  border: 1px solid #d0cfcf;
+  border: ${props => (props.withError ? '1px solid #CB3D40' : '1px solid #d0cfcf')};
   border-radius: 0px 4px 4px 0px;
   font-size: 16px;
   line-height: 26px;
