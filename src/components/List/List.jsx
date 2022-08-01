@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getUsers } from '../../services/api';
 import PhotoCover from '../../assets/image/photo-cover.png';
+import ClipLoader from 'react-spinners/ClipLoader';
 import {
   ListSectionStyled,
   TitleStyled,
@@ -10,6 +11,7 @@ import {
   ImageStyled,
   UserTitleStyled,
   UserInfoStyled,
+  LoadingWrapper,
 } from './List.styled';
 
 const List = () => {
@@ -27,6 +29,12 @@ const List = () => {
           setIsDisabledButton(true);
         }
         setUsers(prevUsers => [...prevUsers, ...response.users]);
+        if (page > 1) {
+          window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth',
+          });
+        }
       } catch (error) {
         return error.message;
       } finally {
@@ -43,7 +51,6 @@ const List = () => {
   return (
     <ListSectionStyled id="users">
       <TitleStyled>Working with GET request</TitleStyled>
-      {loading && <div>loading</div>}
       <UlStyled>
         {users.map(user => (
           <LiStyled key={user.id}>
@@ -63,9 +70,15 @@ const List = () => {
           </LiStyled>
         ))}
       </UlStyled>
-      <ButtonStyled onClick={handleClick} disabled={isDisabledButton}>
-        Show more
-      </ButtonStyled>
+      {loading ? (
+        <LoadingWrapper>
+          <ClipLoader color="#00BDD3" size={48} />
+        </LoadingWrapper>
+      ) : (
+        <ButtonStyled onClick={handleClick} disabled={isDisabledButton}>
+          Show more
+        </ButtonStyled>
+      )}
     </ListSectionStyled>
   );
 };

@@ -81,3 +81,7 @@ export const ButtonStyled = styled.button`
     background: #ffe302;
   }
 `;
+
+export const LoadingWrapper = styled.div`
+  margin-top: 50px;
+`;
