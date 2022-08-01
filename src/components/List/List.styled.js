@@ -27,7 +27,7 @@ export const UlStyled = styled.ul`
 `;
 
 export const LiStyled = styled.li`
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     max-width: 704px;
   }
   height: 254px;
@@ -52,7 +52,6 @@ export const UserTitleStyled = styled.h3`
   color: rgba(0, 0, 0, 0.87);
   margin-bottom: 20px;
   max-height: 26px;
-  overflow: hidden;
 `;
 
 export const UserInfoStyled = styled.p`

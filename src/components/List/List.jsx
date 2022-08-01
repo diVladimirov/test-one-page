@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getUsers } from '../../services/api';
+import PhotoCover from '../../assets/image/photo-cover.png';
 import {
   ListSectionStyled,
   TitleStyled,
@@ -42,17 +43,18 @@ const List = () => {
   return (
     <ListSectionStyled id="users">
       <TitleStyled>Working with GET request</TitleStyled>
+      {loading && <div>loading</div>}
       <UlStyled>
         {users.map(user => (
           <LiStyled key={user.id}>
-            <ImageStyled src={user.photo} alt={user.name} />
-            <UserTitleStyled>{user.name}</UserTitleStyled>
+            <ImageStyled src={user.photo ? user.photo : PhotoCover} alt={user.name} />
+            <UserTitleStyled>{user.name.slice(0, 25)}</UserTitleStyled>
             <ul>
               <li>
                 <UserInfoStyled>{user.position}</UserInfoStyled>
               </li>
               <li>
-                <UserInfoStyled>{user.email}</UserInfoStyled>
+                <UserInfoStyled>{user.email.slice(0, 25)}</UserInfoStyled>
               </li>
               <li>
                 <UserInfoStyled>{user.phone}</UserInfoStyled>

@@ -1,6 +1,7 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { getPositions } from '../../services/api';
 import {
   FormWrapper,
   FormTitle,
@@ -26,24 +27,17 @@ import {
 } from './Form.styled';
 
 const Form = () => {
-  const positions = [
-    {
-      id: 1,
-      name: 'Lawyer',
-    },
-    {
-      id: 2,
-      name: 'Content manager',
-    },
-    {
-      id: 3,
-      name: 'Security',
-    },
-    {
-      id: 4,
-      name: 'Designer',
-    },
-  ];
+  const [positions, setPositions] = useState([]);
+
+  useEffect(() => {
+    const fetchPositions = async () => {
+      const { positions } = await getPositions();
+      setPositions(positions);
+    };
+
+    fetchPositions();
+  }, []);
+
   const formik = useFormik({
     initialValues: {
       name: '',
