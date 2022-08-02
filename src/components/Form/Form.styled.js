@@ -8,7 +8,7 @@ export const FormTitle = styled.h3`
   text-align: center;
   font-size: 40px;
   line-height: 40px;
-  color: rgba(0, 0, 0, 0.87);
+  color: ${props => props.theme.colors.primaryTextColor};
   margin-bottom: 50px;
 `;
 
@@ -39,7 +39,7 @@ export const MainLabelPlaceholderStyled = styled.span`
 export const ErrorTextStyled = styled.div`
   font-size: 12px;
   line-height: 14px;
-  color: #cb3d40;
+  color: ${props => props.theme.colors.errorColor};
   margin-left: 16px;
   margin-top: 4px;
   &:not(:last-of-type) {
@@ -73,7 +73,7 @@ export const PositionDescription = styled.p`
   margin-bottom: 11px;
   font-size: 16px;
   line-height: 26px;
-  color: rgba(0, 0, 0, 0.87);
+  color: ${props => props.theme.colors.primaryTextColor};
 `;
 
 export const PositionWrapper = styled.div`
@@ -84,7 +84,7 @@ export const PositionWrapper = styled.div`
 export const PositionLabelStyled = styled.label`
   font-size: 16px;
   line-height: 26px;
-  color: rgba(0, 0, 0, 0.87);
+  color: ${props => props.theme.colors.primaryTextColor};
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -103,7 +103,7 @@ export const CheckRadio = styled.div`
     width: 100%;
     height: 100%;
     display: block;
-    background: #00bdd3;
+    background: ${props => props.theme.colors.secondaryColor};
     border-radius: 50%;
     transform: scale(0);
     transition: transform 300ms ease;
@@ -113,7 +113,7 @@ export const PositionRadioStyled = styled.input`
   display: none;
 
   &:checked + ${CheckRadio} {
-    border: 1px solid #00bdd3;
+    border: 1px solid ${props => props.theme.colors.secondaryColor};
   }
   &:checked + ${CheckRadio}::after {
     transform: scale(1);
@@ -127,20 +127,20 @@ export const ButtonWrapper = styled.div`
 export const ButtonStyled = styled.button`
   width: 100px;
   border-radius: 80px;
-  background: #f4e041;
+  background: ${props => props.theme.colors.primaryColor};
   padding: 4px;
   font-size: 16px;
   line-height: 26px;
-  color: rgba(0, 0, 0, 0.87);
+  color: ${props => props.theme.colors.primaryTextColor};
 
   &:disabled {
-    background: #b4b4b4;
-    color: rgba(255, 255, 255, 0.87);
+    background: ${props => props.theme.colors.disabledColor};
+    color: ${props => props.theme.colors.secondaryTextColor};
     cursor: default;
   }
   &:hover,
   :focus {
-    background: #ffe302;
+    background: ${props => props.theme.colors.hoverColor};
   }
 `;
 
@@ -172,7 +172,7 @@ export const InputPhotoDescriptionBefore = styled.span`
   font-size: 16px;
   line-height: 26px;
   padding: 14px 15px;
-  color: rgba(0, 0, 0, 0.87);
+  color: ${props => props.theme.colors.primaryTextColor};
 `;
 
 export const InputPhotoDescriptionAfter = styled.span`

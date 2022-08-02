@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = 'https://frontend-test-assignment-api.abz.agency/api/v1';
 
@@ -20,9 +21,10 @@ export const addUser = async data => {
         Token: token.data.token,
       },
     });
+
     return postUser;
   } catch (error) {
-    return error.message;
+    toast.error(error.response.data.message);
   }
 };
 

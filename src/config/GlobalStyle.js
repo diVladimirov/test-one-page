@@ -10,7 +10,7 @@ body {
     font-style: normal;
     font-weight: 400;
     height: 100%;
-    background: #f8f8f8;
+    background: ${props => props.theme.colors.backgroundColor};
 }
 html {
   height: 100%;

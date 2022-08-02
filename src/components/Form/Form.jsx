@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { getPositions } from '../../services/api';
+import { getPositions, addUser } from '../../services/api';
+import SuccessInfo from '../SuccessInfo/SuccessInfo';
 import {
   FormWrapper,
   FormTitle,
@@ -28,6 +29,7 @@ import {
 
 const Form = () => {
   const [positions, setPositions] = useState([]);
+  const [isSuccessSubmit, setIsSuccessSubmit] = useState(false);
 
   useEffect(() => {
     const fetchPositions = async () => {
@@ -43,7 +45,7 @@ const Form = () => {
       name: '',
       email: '',
       phone: '',
-      position: 1,
+      position_id: 1,
       photo: '',
     },
     validationSchema: Yup.object().shape({
@@ -66,174 +68,183 @@ const Form = () => {
         .required('Phone is required'),
       photo: Yup.mixed().required('Photo is required'),
     }),
-    onSubmit: (values, { resetForm }) => {
-      console.log(values);
+    onSubmit: async (values, { resetForm }) => {
+      const response = await addUser(values);
+      if (response.request.status === 201) {
+        setIsSuccessSubmit(true);
+      }
+
       resetForm({ values: '' });
     },
   });
 
   return (
-    <FormWrapper>
-      <FormTitle>Working with POST request</FormTitle>
-      <FormStyled onSubmit={formik.handleSubmit} id="signup">
-        {formik.touched.name && formik.errors.name ? (
-          <MainLabelStyled>
-            <MainInputStyled
-              name="name"
-              type="text"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
-              required
-              withError
-            />
-            <MainLabelPlaceholderStyled withError>Your name</MainLabelPlaceholderStyled>
-          </MainLabelStyled>
-        ) : (
-          <MainLabelStyled>
-            <MainInputStyled
-              name="name"
-              type="text"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
-              required
-            />
-            <MainLabelPlaceholderStyled>Your name</MainLabelPlaceholderStyled>
-          </MainLabelStyled>
-        )}
-        {formik.touched.name && formik.errors.name ? (
-          <ErrorTextStyled>{formik.errors.name}</ErrorTextStyled>
-        ) : null}
-        {formik.touched.email && formik.errors.email ? (
-          <MainLabelStyled>
-            <MainInputStyled
-              name="email"
-              type="email"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-              required
-              withError
-            />
-            <MainLabelPlaceholderStyled withError>Email</MainLabelPlaceholderStyled>
-          </MainLabelStyled>
-        ) : (
-          <MainLabelStyled>
-            <MainInputStyled
-              name="email"
-              type="email"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-              required
-            />
-            <MainLabelPlaceholderStyled>Email</MainLabelPlaceholderStyled>
-          </MainLabelStyled>
-        )}
+    <>
+      {!isSuccessSubmit && (
+        <FormWrapper>
+          <FormTitle>Working with POST request</FormTitle>
+          <FormStyled onSubmit={formik.handleSubmit} id="signup">
+            {formik.touched.name && formik.errors.name ? (
+              <MainLabelStyled>
+                <MainInputStyled
+                  name="name"
+                  type="text"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.name}
+                  required
+                  withError
+                />
+                <MainLabelPlaceholderStyled withError>Your name</MainLabelPlaceholderStyled>
+              </MainLabelStyled>
+            ) : (
+              <MainLabelStyled>
+                <MainInputStyled
+                  name="name"
+                  type="text"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.name}
+                  required
+                />
+                <MainLabelPlaceholderStyled>Your name</MainLabelPlaceholderStyled>
+              </MainLabelStyled>
+            )}
+            {formik.touched.name && formik.errors.name ? (
+              <ErrorTextStyled>{formik.errors.name}</ErrorTextStyled>
+            ) : null}
+            {formik.touched.email && formik.errors.email ? (
+              <MainLabelStyled>
+                <MainInputStyled
+                  name="email"
+                  type="email"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                  required
+                  withError
+                />
+                <MainLabelPlaceholderStyled withError>Email</MainLabelPlaceholderStyled>
+              </MainLabelStyled>
+            ) : (
+              <MainLabelStyled>
+                <MainInputStyled
+                  name="email"
+                  type="email"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                  required
+                />
+                <MainLabelPlaceholderStyled>Email</MainLabelPlaceholderStyled>
+              </MainLabelStyled>
+            )}
 
-        {formik.touched.email && formik.errors.email ? (
-          <ErrorTextStyled>{formik.errors.email}</ErrorTextStyled>
-        ) : null}
-        {formik.touched.phone && formik.errors.phone ? (
-          <MainLabelStyled>
-            <MainInputStyled
-              name="phone"
-              type="tel"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.phone}
-              required
-              withError
-            />
-            <MainLabelPlaceholderStyled withError>Phone</MainLabelPlaceholderStyled>
-          </MainLabelStyled>
-        ) : (
-          <MainLabelStyled>
-            <MainInputStyled
-              name="phone"
-              type="tel"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.phone}
-              required
-            />
-            <MainLabelPlaceholderStyled>Phone</MainLabelPlaceholderStyled>
-          </MainLabelStyled>
-        )}
+            {formik.touched.email && formik.errors.email ? (
+              <ErrorTextStyled>{formik.errors.email}</ErrorTextStyled>
+            ) : null}
+            {formik.touched.phone && formik.errors.phone ? (
+              <MainLabelStyled>
+                <MainInputStyled
+                  name="phone"
+                  type="tel"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.phone}
+                  required
+                  withError
+                />
+                <MainLabelPlaceholderStyled withError>Phone</MainLabelPlaceholderStyled>
+              </MainLabelStyled>
+            ) : (
+              <MainLabelStyled>
+                <MainInputStyled
+                  name="phone"
+                  type="tel"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.phone}
+                  required
+                />
+                <MainLabelPlaceholderStyled>Phone</MainLabelPlaceholderStyled>
+              </MainLabelStyled>
+            )}
 
-        <HelperAndErrorTextWrapper>
-          {formik.touched.phone && formik.errors.phone ? (
-            <ErrorTextStyled>{formik.errors.phone}</ErrorTextStyled>
-          ) : null}
-          <PhoneDescription>+38 (XXX) XXX - XX - XX</PhoneDescription>
-        </HelperAndErrorTextWrapper>
+            <HelperAndErrorTextWrapper>
+              {formik.touched.phone && formik.errors.phone ? (
+                <ErrorTextStyled>{formik.errors.phone}</ErrorTextStyled>
+              ) : null}
+              <PhoneDescription>+38 (XXX) XXX - XX - XX</PhoneDescription>
+            </HelperAndErrorTextWrapper>
 
-        <PositionDescription>Select your position</PositionDescription>
-        <PositionWrapper>
-          {positions.map(position => (
-            <PositionLabelStyled key={position.id}>
-              <PositionRadioStyled
-                type="radio"
-                name="position"
-                checked={Number(formik.values.position) === position.id}
-                value={position.id}
-                onChange={formik.handleChange}
-              />
-              <CheckRadio></CheckRadio>
-              {position.name}
-            </PositionLabelStyled>
-          ))}
-        </PositionWrapper>
+            <PositionDescription>Select your position</PositionDescription>
+            <PositionWrapper>
+              {positions.map(position => (
+                <PositionLabelStyled key={position.id}>
+                  <PositionRadioStyled
+                    type="radio"
+                    name="position_id"
+                    checked={Number(formik.values.position_id) === position.id}
+                    value={position.id}
+                    onChange={formik.handleChange}
+                  />
+                  <CheckRadio></CheckRadio>
+                  {position.name}
+                </PositionLabelStyled>
+              ))}
+            </PositionWrapper>
 
-        <InputPhotoWrapper>
-          {formik.touched.photo && formik.errors.photo ? (
-            <LabelPhotoStyled htmlFor="photo">
-              <InputPhotoStyled
-                type="file"
-                id="photo"
-                name="photo"
-                accept=".jpg, .jpeg"
-                onChange={events => {
-                  formik.setFieldValue('photo', events.target.files[0]);
-                }}
-              />
-              <InputPhotoDescriptionBefore withError>Upload</InputPhotoDescriptionBefore>
-              <InputPhotoDescriptionAfter withError>
-                {formik.values.photo ? formik.values.photo.name : 'Upload your photo'}
-              </InputPhotoDescriptionAfter>
-            </LabelPhotoStyled>
-          ) : (
-            <LabelPhotoStyled htmlFor="photo">
-              <InputPhotoStyled
-                type="file"
-                id="photo"
-                name="photo"
-                accept=".jpg, .jpeg"
-                onChange={events => {
-                  formik.setFieldValue('photo', events.target.files[0]);
-                }}
-              />
-              <InputPhotoDescriptionBefore>Upload</InputPhotoDescriptionBefore>
-              <InputPhotoDescriptionAfter>
-                {formik.values.photo
-                  ? formik.values.photo.name.slice(0, 27) + '...'
-                  : 'Upload your photo'}
-              </InputPhotoDescriptionAfter>
-            </LabelPhotoStyled>
-          )}
+            <InputPhotoWrapper>
+              {formik.touched.photo && formik.errors.photo ? (
+                <LabelPhotoStyled htmlFor="photo">
+                  <InputPhotoStyled
+                    type="file"
+                    id="photo"
+                    name="photo"
+                    accept=".jpg, .jpeg"
+                    onChange={events => {
+                      formik.setFieldValue('photo', events.target.files[0]);
+                    }}
+                  />
+                  <InputPhotoDescriptionBefore withError>Upload</InputPhotoDescriptionBefore>
+                  <InputPhotoDescriptionAfter withError>
+                    {formik.values.photo ? formik.values.photo.name : 'Upload your photo'}
+                  </InputPhotoDescriptionAfter>
+                </LabelPhotoStyled>
+              ) : (
+                <LabelPhotoStyled htmlFor="photo">
+                  <InputPhotoStyled
+                    type="file"
+                    id="photo"
+                    name="photo"
+                    accept=".jpg, .jpeg"
+                    onChange={events => {
+                      formik.setFieldValue('photo', events.target.files[0]);
+                    }}
+                  />
+                  <InputPhotoDescriptionBefore>Upload</InputPhotoDescriptionBefore>
+                  <InputPhotoDescriptionAfter>
+                    {formik.values.photo
+                      ? formik.values.photo.name.slice(0, 27) + '...'
+                      : 'Upload your photo'}
+                  </InputPhotoDescriptionAfter>
+                </LabelPhotoStyled>
+              )}
 
-          {formik.touched.photo && formik.errors.photo ? (
-            <ErrorTextStyled>{formik.errors.photo}</ErrorTextStyled>
-          ) : null}
-        </InputPhotoWrapper>
-        <ButtonWrapper>
-          <ButtonStyled type="submit" disabled={!formik.dirty && !formik.isValid}>
-            Sign up
-          </ButtonStyled>
-        </ButtonWrapper>
-      </FormStyled>
-    </FormWrapper>
+              {formik.touched.photo && formik.errors.photo ? (
+                <ErrorTextStyled>{formik.errors.photo}</ErrorTextStyled>
+              ) : null}
+            </InputPhotoWrapper>
+            <ButtonWrapper>
+              <ButtonStyled type="submit" disabled={!formik.dirty && !formik.isValid}>
+                Sign up
+              </ButtonStyled>
+            </ButtonWrapper>
+          </FormStyled>
+        </FormWrapper>
+      )}
+      {isSuccessSubmit && <SuccessInfo />}
+    </>
   );
 };
 

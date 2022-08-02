@@ -8,7 +8,7 @@ export const ListSectionStyled = styled.section`
 export const TitleStyled = styled.h2`
   font-size: 40px;
   line-height: 40px;
-  color: rgba(0, 0, 0, 0.87);
+  color: ${props => props.theme.colors.primaryTextColor};
 `;
 
 export const UlStyled = styled.ul`
@@ -49,7 +49,7 @@ export const ImageStyled = styled.img`
 export const UserTitleStyled = styled.h3`
   font-size: 16px;
   line-height: 26px;
-  color: rgba(0, 0, 0, 0.87);
+  color: ${props => props.theme.colors.primaryTextColor};
   margin-bottom: 20px;
   max-height: 26px;
 `;
@@ -57,28 +57,24 @@ export const UserTitleStyled = styled.h3`
 export const UserInfoStyled = styled.p`
   font-size: 16px;
   line-height: 26px;
-  color: rgba(0, 0, 0, 0.87);
+  color: ${props => props.theme.colors.primaryTextColor};
 `;
 
 export const ButtonStyled = styled.button`
   width: 120px;
   border-radius: 80px;
-  background: #f4e041;
+  background: ${props => props.theme.colors.primaryColor};
   padding: 4px;
   text-align: center;
   font-size: 16px;
   line-height: 26px;
-  color: rgba(0, 0, 0, 0.87);
+  color: ${props => props.theme.colors.primaryTextColor};
   margin-top: 50px;
 
   &:disabled {
-    background: #b4b4b4;
-    color: rgba(255, 255, 255, 0.87);
+    background: ${props => props.theme.colors.disabledColor};
+    color: ${props => props.theme.colors.secondaryTextColor};
     cursor: default;
-  }
-  &:hover,
-  :focus {
-    background: #ffe302;
   }
 `;
 

@@ -52,23 +52,24 @@ const List = () => {
     <ListSectionStyled id="users">
       <TitleStyled>Working with GET request</TitleStyled>
       <UlStyled>
-        {users.map(user => (
-          <LiStyled key={user.id}>
-            <ImageStyled src={user.photo ? user.photo : PhotoCover} alt={user.name} />
-            <UserTitleStyled>{user.name.slice(0, 25)}</UserTitleStyled>
-            <ul>
-              <li>
-                <UserInfoStyled>{user.position}</UserInfoStyled>
-              </li>
-              <li>
-                <UserInfoStyled>{user.email.slice(0, 25)}</UserInfoStyled>
-              </li>
-              <li>
-                <UserInfoStyled>{user.phone}</UserInfoStyled>
-              </li>
-            </ul>
-          </LiStyled>
-        ))}
+        {users &&
+          users.map(user => (
+            <LiStyled key={user.id}>
+              <ImageStyled src={user.photo ? user.photo : PhotoCover} alt={user.name} />
+              <UserTitleStyled>{user.name.slice(0, 25)}</UserTitleStyled>
+              <ul>
+                <li>
+                  <UserInfoStyled>{user.position}</UserInfoStyled>
+                </li>
+                <li>
+                  <UserInfoStyled>{user.email.slice(0, 25)}</UserInfoStyled>
+                </li>
+                <li>
+                  <UserInfoStyled>{user.phone}</UserInfoStyled>
+                </li>
+              </ul>
+            </LiStyled>
+          ))}
       </UlStyled>
       {loading ? (
         <LoadingWrapper>

@@ -22,17 +22,17 @@ export const LinkStyled = styled.a`
   display: inline-block;
   width: 100px;
   border-radius: 80px;
-  background: #f4e041;
+  background: ${props => props.theme.colors.primaryColor};
   padding: 4px;
   text-align: center;
   font-size: 16px;
   line-height: 26px;
-  color: rgba(0, 0, 0, 0.87);
+  color: ${props => props.theme.colors.primaryTextColor};
   :not(:last-child) {
     margin-right: 10px;
   }
   &:hover,
   :focus {
-    background: #ffe302;
+    background: ${props => props.theme.colors.hoverColor};
   }
 `;
